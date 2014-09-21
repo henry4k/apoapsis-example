@@ -1,10 +1,10 @@
 Apoapsis Example Package
 ========================
 
-A game about the solitude and survival in a high-tech lump 20 million meters 
-above the earth.
+A package for a game called [Apoapsis](https://github.com/henry4k/apoapsis).
 
-This is still very WIP!
+This package contains assets and scripts, which will become the foundation
+of the actual game content, once the engine is mature enough.
 
 
 ## Dependencies
@@ -12,6 +12,8 @@ This is still very WIP!
 Needed to export models and graphics:
 - blender
 - xcf2png or gimp
+
+And obviously you need the Apoapsis executable and the core package.
 
 
 ## Licence and copyright
