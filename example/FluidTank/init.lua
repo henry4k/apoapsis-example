@@ -1,4 +1,4 @@
-local class = require 'core/middleclass'
+local class = require 'middleclass'
 local Model = require 'core/Model'
 local Mesh  = require 'core/Mesh'
 local Texture = require 'core/Texture'

@@ -1,4 +1,4 @@
-local class = require 'core/middleclass'
+local class = require 'middleclass'
 local Model = require 'core/Model'
 local Mesh  = require 'core/Mesh'
 local Texture = require 'core/Texture'
@@ -13,7 +13,7 @@ function ReferenceCube:initialize( modelWorld )
     self.model:setMesh(mesh)
     self.model:setProgramFamilyList('default')
     self.model:setTexture(0, diffuseTexture)
-    self.model:setUniform('DiffuseSampler', 0)
+    self.model:setUniform('DiffuseSampler', 0, 'int')
 end
 
 return ReferenceCube

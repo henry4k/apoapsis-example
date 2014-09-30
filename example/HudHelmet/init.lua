@@ -1,4 +1,4 @@
-local class = require 'core/middleclass'
+local class = require 'middleclass'
 
 local Json    = require 'core/Json'
 local Texture = require 'core/Texture'
