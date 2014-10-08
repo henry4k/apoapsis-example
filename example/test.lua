@@ -14,6 +14,7 @@ renderTarget = require 'core/DefaultRenderTarget':get()
 camera = renderTarget:getCamera()
 modelWorld = camera:getModelWorld()
 
+--[[
 cubeShape = BoxCollisionShape(Vec(0.5, 0.5, 0.5))
 
 function MakeCube( mass, position )
@@ -30,6 +31,7 @@ cube1 = MakeCube(0, Vec(0.0, 0.0, 2.0))
 cube2 = MakeCube(1, Vec(0.6, 2.0, 2.0))
 cube3 = MakeCube(4, Vec(0.2, 3.2, 2.0))
 cube3.model:getAttachmentTarget():setCollisionThreshold(0.7)
+]]
 
 
 local skyboxShaderProgram = ShaderProgram:load('example/Skybox/shader.vert',
@@ -37,17 +39,26 @@ local skyboxShaderProgram = ShaderProgram:load('example/Skybox/shader.vert',
 renderTarget:getShaderProgramSet():setFamily('skybox', skyboxShaderProgram)
 
 skybox = Skybox(modelWorld)
-skybox.model:setTransformation(Mat4():scale(99999*1000))
+--skybox.model:setTransformation(Mat4():scale(99999*1000))
+skybox.model:setTransformation(Mat4():scale(50))
 
 
-local planetShaderProgram = ShaderProgram:load('example/Planet/shader.vert',
+local planetShaderProgram = ShaderProgram:load('example/Planet/normal-mapping.vert',
+                                               'example/Planet/normal-mapping.frag',
+                                               'example/Planet/shader.vert',
                                                'example/Planet/shader.frag')
 renderTarget:getShaderProgramSet():setFamily('planet', planetShaderProgram)
 
+local planetCloudsShaderProgram = ShaderProgram:load('example/Planet/normal-mapping.vert',
+                                                     'example/Planet/normal-mapping.frag',
+                                                     'example/Planet/shader.vert',
+                                                     'example/Planet/clouds.frag')
+renderTarget:getShaderProgramSet():setFamily('planet-clouds', planetCloudsShaderProgram)
+
 planet = Planet(modelWorld)
-local planetDiameter = 12756 * 1000
-local meterAboveSurface = 400 * 1000
+local planetDiameter = 4 --12756 * 1000
+local meterAboveSurface = 5 --400 * 1000
 local planetTransformation = Mat4():translate(Vec(0,0,planetDiameter+meterAboveSurface))
                                    :scale(planetDiameter*2)
                                    :rotate(90, Vec(0,1,0))
-planet.model:setTransformation(planetTransformation)
+planet:setTransformation(planetTransformation)
