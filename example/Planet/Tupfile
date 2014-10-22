@@ -2,3 +2,6 @@ include_rules
 
 : foreach *.blend |> !blender |> %B.json
 : foreach *.xcf |> !xcf2png |> %B.png
+
+: EarthHeight.png |> !normalmap |> EarthNormal.png
+: EarthCloudDiffuse.png |> !normalmap |> EarthCloudNormal.png

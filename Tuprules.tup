@@ -18,6 +18,12 @@ endif
 endif
 
 
+# -- normalmap
+
+NORMAL_MAP_SCRIPT = $(TUP_CWD)/tools/ExportNormalMap.sh
+!normalmap = |> ^o Exporting normal map %f^ "$(NORMAL_MAP_SCRIPT)" @(GIMP) %f %o |>
+
+
 # -- blender --
 
 ifdef BLENDER

@@ -1,29 +1,22 @@
 #version 120
+vec3 CalcLightColor( vec3 normalTexel ); // from normal-mapping.frag
 
-uniform sampler2D ControlSampler;
-uniform sampler2D RDetailSampler;
-uniform sampler2D GDetailSampler;
-uniform sampler2D BDetailSampler;
+uniform sampler2D DiffuseSampler;
+uniform sampler2D NormalSampler;
+uniform sampler2D CloudSampler;
 
 varying vec2 TexCoord;
 
-const float DetailScale = 16.0;
+const float CloudShadowAlpha = 0.9;
 
 void main()
 {
-    vec4 control = texture2D(ControlSampler, TexCoord);
-    vec4 rDetail = texture2D(RDetailSampler, TexCoord*DetailScale);
-    vec4 gDetail = texture2D(GDetailSampler, TexCoord*DetailScale);
-    vec4 bDetail = texture2D(BDetailSampler, TexCoord*DetailScale);
+    vec3 diffuseColor = texture2D(DiffuseSampler, TexCoord).rgb;
 
-    float height = control.a;
-    float rContribution = control.r;
-    float gContribution = control.g;
-    float bContribution = control.b;
+    vec3 lightColor = CalcLightColor(texture2D(NormalSampler, TexCoord).rgb);
 
-    gl_FragColor = vec4(0,0,0,0);
-    gl_FragColor = mix(gl_FragColor, rDetail, 1.0); //rContribution);
-    //gl_FragColor = mix(gl_FragColor, gDetail, gContribution);
-    //gl_FragColor = mix(gl_FragColor, bDetail, bContribution);
-    gl_FragColor.a = 1.0;
+    vec3 cloudColor   = texture2D(CloudSampler, TexCoord).rgb;
+    float cloudShadow = 1.0 - cloudColor.r*CloudShadowAlpha;
+
+    gl_FragColor = vec4(diffuseColor * lightColor * cloudShadow, 1.0);
 }
