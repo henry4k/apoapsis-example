@@ -1,14 +1,14 @@
 local class = require 'middleclass'
 
 local Json    = require 'core/Json'
-local Texture = require 'core/Texture'
-local Mesh    = require 'core/Mesh'
 local Scene   = require 'core/Scene'
-local Model   = require 'core/Model'
 local Vec     = require 'core/Vector'
 local Mat4    = require 'core/Matrix4'
-local Shader  = require 'core/Shader'
-local ShaderProgram = require 'core/ShaderProgram'
+local Texture = require 'core/graphics/Texture'
+local Mesh    = require 'core/graphics/Mesh'
+local Model   = require 'core/graphics/Model'
+local Shader  = require 'core/graphics/Shader'
+local ShaderProgram = require 'core/graphics/ShaderProgram'
 
 
 local HudHelmet = class('example/HudHelmet')

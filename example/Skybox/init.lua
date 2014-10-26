@@ -1,9 +1,9 @@
 local class = require 'middleclass'
-local Model = require 'core/Model'
 local Vec   = require 'core/Vector'
 local Mat4  = require 'core/Matrix4'
-local Mesh  = require 'core/Mesh'
-local Texture = require 'core/Texture'
+local Model = require 'core/graphics/Model'
+local Mesh  = require 'core/graphics/Mesh'
+local Texture = require 'core/graphics/Texture'
 
 
 local Skybox = class('example/Skybox')

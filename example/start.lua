@@ -1,18 +1,20 @@
 local Vec           = require 'core/Vector'
 local Quat          = require 'core/Quaternion'
 local Mat4          = require 'core/Matrix4'
-local Shader        = require 'core/Shader'
-local ShaderProgram = require 'core/ShaderProgram'
-local BoxCollisionShape = require 'core/collision_shapes/BoxCollisionShape'
-local Solid         = require 'core/Solid'
-local Camera        = require 'core/Camera'
+local Shader        = require 'core/graphics/Shader'
+local ShaderProgram = require 'core/graphics/ShaderProgram'
+local Camera        = require 'core/graphics/Camera'
+local BoxCollisionShape = require 'core/physics/BoxCollisionShape'
+local Solid         = require 'core/physics/Solid'
 local ReferenceCube = require 'example/ReferenceCube/init'
 local Skybox        = require 'example/Skybox/init'
 local Planet        = require 'example/Planet/init'
 
-renderTarget = require 'core/DefaultRenderTarget':get()
-camera = renderTarget:getCamera()
-modelWorld = camera:getModelWorld()
+renderTarget = require 'core/graphics/DefaultRenderTarget':get()
+worldCamera      = renderTarget:getCameraByName('world')
+backgroundCamera = renderTarget:getCameraByName('background')
+worldModelWorld      = worldCamera:getModelWorld()
+backgroundModelWorld = backgroundCamera:getModelWorld()
 
 --[[
 cubeShape = BoxCollisionShape(Vec(0.5, 0.5, 0.5))
@@ -20,7 +22,7 @@ cubeShape = BoxCollisionShape(Vec(0.5, 0.5, 0.5))
 function MakeCube( mass, position )
     local solid = Solid(mass, position, Quat(), cubeShape)
 
-    local cube = ReferenceCube(modelWorld)
+    local cube = ReferenceCube(worldModelWorld)
     cube.model:setAttachmentTarget(solid)
     cube.solid = solid
 
@@ -34,11 +36,11 @@ cube3.model:getAttachmentTarget():setCollisionThreshold(0.7)
 ]]
 
 
-local skyboxShaderProgram = ShaderProgram:load('example/Skybox/shader.vert',
-                                               'example/Skybox/shader.frag')
+local skyboxShaderProgram = ShaderProgram:get('example/Skybox/shader.vert',
+                                              'example/Skybox/shader.frag')
 renderTarget:getShaderProgramSet():setFamily('skybox', skyboxShaderProgram)
 
-skybox = Skybox(modelWorld)
+skybox = Skybox(backgroundModelWorld)
 --skybox.model:setTransformation(Mat4():scale(99999*1000))
 skybox.model:setTransformation(Mat4():scale(50))
 
@@ -55,7 +57,7 @@ local planetCloudsShaderProgram = ShaderProgram:load('example/Planet/normal-mapp
                                                      'example/Planet/clouds.frag')
 renderTarget:getShaderProgramSet():setFamily('planet-clouds', planetCloudsShaderProgram)
 
-planet = Planet(modelWorld)
+planet = Planet(backgroundModelWorld)
 local planetDiameter = 4 --12756 * 1000
 local meterAboveSurface = 5 --400 * 1000
 local planetTransformation = Mat4():translate(Vec(0,0,planetDiameter+meterAboveSurface))

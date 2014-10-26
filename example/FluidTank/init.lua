@@ -1,7 +1,7 @@
 local class = require 'middleclass'
-local Model = require 'core/Model'
-local Mesh  = require 'core/Mesh'
-local Texture = require 'core/Texture'
+local Model = require 'core/graphics/Model'
+local Mesh  = require 'core/graphics/Mesh'
+local Texture = require 'core/graphics/Texture'
 
 
 local FluidTank = class('example/FluidTank')
