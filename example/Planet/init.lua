@@ -4,27 +4,28 @@ local Mesh    = require 'core/graphics/Mesh'
 local Texture = require 'core/graphics/Texture'
 
 
+local planetMesh = Mesh:load('example/Planet/Scene.json', 'Icosphere')
+local earthDiffuseTexture = Texture:load('2d', 'example/Planet/EarthDiffuse.png', 'filter')
+local earthNormalTexture  = Texture:load('2d', 'example/Planet/EarthNormal.png', 'filter')
+local cloudDiffuseTexture = Texture:load('2d', 'example/Planet/EarthCloudDiffuse.png',  'filter')
+local cloudNormalTexture  = Texture:load('2d', 'example/Planet/EarthCloudNormal.png',  'filter')
+
+
 local Planet = class('example/Planet')
 
 function Planet:initialize( modelWorld )
-    local mesh = Mesh:load('example/Planet/Scene.json', 'Icosphere')
-    local diffuseTexture = Texture:load('2d', 'example/Planet/EarthDiffuse.png', 'filter')
-    local normalTexture  = Texture:load('2d', 'example/Planet/EarthNormal.png', 'filter')
-    local cloudDiffuseTexture = Texture:load('2d', 'example/Planet/EarthCloudDiffuse.png',  'filter')
-    local cloudNormalTexture  = Texture:load('2d', 'example/Planet/EarthCloudNormal.png',  'filter')
-
     self.model = modelWorld:createModel('background')
-    self.model:setMesh(mesh)
+    self.model:setMesh(planetMesh)
     self.model:setProgramFamilyList('planet')
-    self.model:setTexture(0, diffuseTexture)
-    self.model:setTexture(1, normalTexture)
+    self.model:setTexture(0, earthDiffuseTexture)
+    self.model:setTexture(1, earthNormalTexture)
     self.model:setTexture(2, cloudDiffuseTexture)
     self.model:setUniform('DiffuseSampler', 0, 'int')
     self.model:setUniform('NormalSampler',  1, 'int')
     self.model:setUniform('CloudSampler',   2, 'int')
 
     self.cloudModel = modelWorld:createModel('background')
-    self.cloudModel:setMesh(mesh)
+    self.cloudModel:setMesh(planetMesh)
     self.cloudModel:setProgramFamilyList('planet-clouds')
     self.cloudModel:setTexture(0, cloudDiffuseTexture)
     self.cloudModel:setTexture(1, cloudNormalTexture)
