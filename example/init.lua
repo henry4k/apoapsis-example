@@ -24,6 +24,7 @@ local planetCloudsShaderProgram = ShaderProgram:load('example/Planet/normal-mapp
                                                      'example/Planet/shader.vert',
                                                      'example/Planet/clouds.frag')
 
+
 local function start()
     renderTarget         = require 'core/graphics/DefaultRenderTarget':get()
     worldCamera          = renderTarget:getCameraByName('world')
@@ -35,10 +36,9 @@ local function start()
     renderTarget:getShaderProgramSet():setFamily('planet', planetShaderProgram)
     renderTarget:getShaderProgramSet():setFamily('planet-clouds', planetCloudsShaderProgram)
 
-    --[[
     cubeShape = BoxCollisionShape(Vec(0.5, 0.5, 0.5))
 
-    function MakeCube( mass, position )
+    local function MakeCube( mass, position )
         local solid = Solid(mass, position, Quat(), cubeShape)
 
         local cube = ReferenceCube(worldModelWorld)
@@ -52,7 +52,6 @@ local function start()
     cube2 = MakeCube(1, Vec(0.6, 2.0, 2.0))
     cube3 = MakeCube(4, Vec(0.2, 3.2, 2.0))
     cube3.model:getAttachmentTarget():setCollisionThreshold(0.7)
-    ]]
 
     skybox = Skybox(backgroundModelWorld)
     --skybox.model:setTransformation(Mat4():scale(99999*1000))

@@ -8,8 +8,8 @@ local ShaderProgram = require 'core/graphics/ShaderProgram'
 
 
 local hudHelmetShaderProgram =
-    ShaderProgram:load(Shader:new('example/HudHelmet/shader.vert'),
-                       Shader:new('example/HudHelmet/shader.frag'))
+    ShaderProgram:load('example/HudHelmet/shader.vert',
+                       'example/HudHelmet/shader.frag')
 local hudHelmetMesh = Mesh:load('example/HudHelmet/Scene.json', 'Helmet')
 
 
