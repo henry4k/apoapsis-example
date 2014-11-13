@@ -4,13 +4,13 @@ local Mesh    = require 'core/graphics/Mesh'
 local Texture = require 'core/graphics/Texture'
 
 
-local cubeMesh = Mesh:load('example/ReferenceCube/Scene.json', 'Cube')
-local cubeDiffuseTexture = Texture:load('2d', 'example/ReferenceCube/Diffuse.png')
+local cubeMesh = Mesh:load('example/Scaffold/Scene.json', 'Scaffold')
+local cubeDiffuseTexture = Texture:load('2d', 'example/Scaffold/Diffuse.png')
 
 
-local ReferenceCube = class('example/ReferenceCube')
+local Scaffold = class('example/Scaffold')
 
-function ReferenceCube:initialize( modelWorld )
+function Scaffold:initialize( modelWorld )
     self.model = modelWorld:createModel()
     self.model:setMesh(cubeMesh)
     self.model:setProgramFamilyList('simple')
@@ -18,4 +18,4 @@ function ReferenceCube:initialize( modelWorld )
     self.model:setUniform('DiffuseSampler', 0, 'int')
 end
 
-return ReferenceCube
+return Scaffold

@@ -7,9 +7,13 @@ local Camera        = require 'core/graphics/Camera'
 local BoxCollisionShape = require 'core/physics/BoxCollisionShape'
 local Solid         = require 'core/physics/Solid'
 local ReferenceCube = require 'example/ReferenceCube/init'
+local Scaffold      = require 'example/Scaffold/init'
 local Skybox        = require 'example/Skybox/init'
 local Planet        = require 'example/Planet/init'
 
+
+local simpleShaderProgram = ShaderProgram:load('example/shaders/Simple.vert',
+                                               'example/shaders/Simple.frag')
 
 local skyboxShaderProgram = ShaderProgram:load('example/Skybox/shader.vert',
                                                'example/Skybox/shader.frag')
@@ -32,6 +36,7 @@ local function start()
     worldModelWorld      = worldCamera:getModelWorld()
     backgroundModelWorld = backgroundCamera:getModelWorld()
 
+    renderTarget:getShaderProgramSet():setFamily('simple', simpleShaderProgram)
     renderTarget:getShaderProgramSet():setFamily('skybox', skyboxShaderProgram)
     renderTarget:getShaderProgramSet():setFamily('planet', planetShaderProgram)
     renderTarget:getShaderProgramSet():setFamily('planet-clouds', planetCloudsShaderProgram)
@@ -41,7 +46,7 @@ local function start()
     local function MakeCube( mass, position )
         local solid = Solid(mass, position, Quat(), cubeShape)
 
-        local cube = ReferenceCube(worldModelWorld)
+        local cube = Scaffold(worldModelWorld)
         cube.model:setAttachmentTarget(solid)
         cube.solid = solid
 
