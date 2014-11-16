@@ -28,7 +28,8 @@ NORMAL_MAP_SCRIPT = $(TUP_CWD)/tools/ExportNormalMap.sh
 
 ifdef BLENDER
     EXPORT_JSON_SCRIPT = $(TUP_CWD)/tools/ExportJSON.py
-    !blender = |> ^o Exporting %f^ PYTHONDONTWRITEBYTECODE=1 @(BLENDER) %f --background --python "$(EXPORT_JSON_SCRIPT)" -- %o >/dev/null |> %B.json
+    BLENDER_OPTIONS = --background -noaudio -noglsl -nojoystick
+    !blender = |> ^o Exporting %f^ PYTHONDONTWRITEBYTECODE=1 @(BLENDER) %f $(BLENDER_OPTIONS) --python "$(EXPORT_JSON_SCRIPT)" -- %o >/dev/null |> %B.json
 else
     !blender = |> ^o Exporting %f^ false |> %B.json
 endif
