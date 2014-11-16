@@ -15,9 +15,6 @@ argv = argv[argv.index("--") + 1:] # get all args after "--"
 
 out = argv[0]
 
-bpy.ops.object.select_all(action='DESELECT')
-
-
 export_json.save(
     bpy.data.scenes[0],
     filepath=out,
