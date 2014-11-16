@@ -17,8 +17,9 @@ out = argv[0]
 
 bpy.ops.object.select_all(action='DESELECT')
 
+
 export_json.save(
-    bpy.context.scene,
+    bpy.data.scenes[0],
     filepath=out,
     triangulate=True,
     y_is_up=True)
