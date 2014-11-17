@@ -6,8 +6,9 @@ local ShaderProgram = require 'core/graphics/ShaderProgram'
 local Camera        = require 'core/graphics/Camera'
 local BoxCollisionShape = require 'core/physics/BoxCollisionShape'
 local Solid         = require 'core/physics/Solid'
-local ReferenceCube = require 'example/ReferenceCube/init'
 local Scaffold      = require 'example/Scaffold/init'
+local Wall          = require 'example/Wall/init'
+local Pipe          = require 'example/Pipe/init'
 local Skybox        = require 'example/Skybox/init'
 local Planet        = require 'example/Planet/init'
 
@@ -43,10 +44,17 @@ local function start()
 
     cubeShape = BoxCollisionShape(Vec(0.5, 0.5, 0.5))
 
+    local cubeTypes = {
+        Scaffold,
+        Wall,
+        Pipe
+    }
+
     local function MakeCube( mass, position )
         local solid = Solid(mass, position, Quat(), cubeShape)
 
-        local cube = Scaffold(worldModelWorld)
+        local cubeType = cubeTypes[math.random(#cubeTypes)]
+        local cube = cubeType(worldModelWorld)
         cube.model:setAttachmentTarget(solid)
         cube.solid = solid
 
