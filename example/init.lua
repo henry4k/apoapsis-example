@@ -44,27 +44,23 @@ local function start()
 
     cubeShape = BoxCollisionShape(Vec(0.5, 0.5, 0.5))
 
-    local cubeTypes = {
-        Scaffold,
-        Wall,
-        Pipe
-    }
-
-    local function MakeCube( mass, position )
+    local function MakeCube( clazz, mass, position )
         local solid = Solid(mass, position, Quat(), cubeShape)
 
-        local cubeType = cubeTypes[math.random(#cubeTypes)]
-        local cube = cubeType(worldModelWorld)
+        local cube = clazz(worldModelWorld)
         cube.model:setAttachmentTarget(solid)
         cube.solid = solid
 
         return cube
     end
 
-    cube1 = MakeCube(0, Vec(0.0, 0.0, 2.0))
-    cube2 = MakeCube(1, Vec(0.6, 2.0, 2.0))
-    cube3 = MakeCube(4, Vec(0.2, 3.2, 2.0))
-    cube3.model:getAttachmentTarget():setCollisionThreshold(0.7)
+    pipe1 = MakeCube(Pipe, 0, Vec(0.0, -1.0, 2.0))
+    pipe2 = MakeCube(Pipe, 0, Vec(0.0, -2.0, 2.0))
+    pipe3 = MakeCube(Pipe, 0, Vec(0.0, -3.0, 2.0))
+
+    cube1 = MakeCube(Scaffold, 1, Vec(0.6, 2.0, 2.0))
+    cube2 = MakeCube(Wall, 4, Vec(0.2, 3.2, 2.0))
+    cube2.model:getAttachmentTarget():setCollisionThreshold(0.7)
 
     skybox = Skybox(backgroundModelWorld)
     --skybox.model:setTransformation(Mat4():scale(99999*1000))
