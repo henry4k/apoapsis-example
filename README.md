@@ -10,6 +10,7 @@ of the actual game content, once the engine is mature enough.
 ## Dependencies
 
 Needed to export models and graphics:
+
 - blender
 - xcf2png or gimp
 
