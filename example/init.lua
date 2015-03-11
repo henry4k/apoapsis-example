@@ -4,6 +4,7 @@ local Mat4          = require 'core/Matrix4'
 local Shader        = require 'core/graphics/Shader'
 local ShaderProgram = require 'core/graphics/ShaderProgram'
 local Camera        = require 'core/graphics/Camera'
+local Texture       = require 'core/graphics/Texture'
 local BoxCollisionShape = require 'core/physics/BoxCollisionShape'
 local Solid         = require 'core/physics/Solid'
 local Scaffold      = require 'example/Scaffold/init'
@@ -13,8 +14,13 @@ local Skybox        = require 'example/Skybox/init'
 local Planet        = require 'example/Planet/init'
 
 
+local overlayTexture = Texture:load('2d', 'example/Overlay.png')
+
 local simpleShaderProgram = ShaderProgram:load('example/shaders/Simple.vert',
                                                'example/shaders/Simple.frag')
+
+local overlayShaderProgram = ShaderProgram:load('example/shaders/Overlay.vert',
+                                                'example/shaders/Overlay.frag')
 
 local skyboxShaderProgram = ShaderProgram:load('example/Skybox/shader.vert',
                                                'example/Skybox/shader.frag')
@@ -29,6 +35,17 @@ local planetCloudsShaderProgram = ShaderProgram:load('example/Planet/normal-mapp
                                                      'example/Planet/shader.vert',
                                                      'example/Planet/clouds.frag')
 
+local function AddOverlay( cube, modelWorld )
+    local overlayModel = modelWorld:createModel()
+    overlayModel:setMesh(cube.model:getMesh())
+    overlayModel:setProgramFamilyList('overlay')
+    overlayModel:setTexture(0, overlayTexture)
+    overlayModel:setUniform('DiffuseSampler', 0, 'int')
+    overlayModel:setAttachmentTarget(cube.model:getAttachmentTarget())
+    overlayModel:setOverlayLevel(1)
+
+    cube.overlayModel = overlayModel
+end
 
 local function start()
     renderTarget         = require 'core/graphics/DefaultRenderTarget':get()
@@ -38,33 +55,40 @@ local function start()
     backgroundModelWorld = backgroundCamera:getModelWorld()
 
     renderTarget:getShaderProgramSet():setFamily('simple', simpleShaderProgram)
+    renderTarget:getShaderProgramSet():setFamily('overlay', overlayShaderProgram)
     renderTarget:getShaderProgramSet():setFamily('skybox', skyboxShaderProgram)
     renderTarget:getShaderProgramSet():setFamily('planet', planetShaderProgram)
     renderTarget:getShaderProgramSet():setFamily('planet-clouds', planetCloudsShaderProgram)
 
     cubeShape = BoxCollisionShape(Vec(0.5, 0.5, 0.5))
 
-    local cubeTypes = {
-        Scaffold,
-        Wall,
-        Pipe
-    }
-
-    local function MakeCube( mass, position )
+    local function MakeCube( clazz, mass, position )
         local solid = Solid(mass, position, Quat(), cubeShape)
 
-        local cubeType = cubeTypes[math.random(#cubeTypes)]
-        local cube = cubeType(worldModelWorld)
+        local cube = clazz(worldModelWorld)
         cube.model:setAttachmentTarget(solid)
         cube.solid = solid
 
         return cube
     end
 
-    cube1 = MakeCube(0, Vec(0.0, 0.0, 2.0))
-    cube2 = MakeCube(1, Vec(0.6, 2.0, 2.0))
-    cube3 = MakeCube(4, Vec(0.2, 3.2, 2.0))
-    cube3.model:getAttachmentTarget():setCollisionThreshold(0.7)
+    pipe1 = MakeCube(Pipe, 0, Vec(0.0, -1.0, 2.0))
+    pipe2 = MakeCube(Pipe, 0, Vec(0.0, -2.0, 2.0))
+    pipe3 = MakeCube(Pipe, 0, Vec(0.0, -3.0, 2.0))
+
+    AddOverlay(pipe1, worldModelWorld)
+    AddOverlay(pipe2, worldModelWorld)
+    AddOverlay(pipe3, worldModelWorld)
+
+    cube1 = MakeCube(Scaffold, 1, Vec(0.6, 2.0, 2.0))
+    cube2 = MakeCube(Wall, 4, Vec(0.2, 3.2, 2.0))
+    cube2.model:getAttachmentTarget():setCollisionThreshold(0.7)
+    cube2.solid:addEventTarget('collision', cube2, function( cube, impulse, ... )
+        if impulse > 0.5 then
+            print('BOOM!')
+            cube.solid:applyImpulse(Vec(0, 3, 0))
+        end
+    end)
 
     skybox = Skybox(backgroundModelWorld)
     --skybox.model:setTransformation(Mat4():scale(99999*1000))
