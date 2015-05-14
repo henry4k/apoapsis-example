@@ -38,7 +38,7 @@ local planetCloudsShaderProgram = ShaderProgram:load('example/Planet/normal-mapp
 local function AddOverlay( cube, modelWorld )
     local overlayModel = modelWorld:createModel()
     overlayModel:setMesh(cube.model:getMesh())
-    overlayModel:setProgramFamilyList('overlay')
+    overlayModel:setProgramFamily('overlay')
     overlayModel:setTexture(0, overlayTexture)
     overlayModel:setUniform('DiffuseSampler', 0, 'int')
     overlayModel:setAttachmentTarget(cube.model:getAttachmentTarget())

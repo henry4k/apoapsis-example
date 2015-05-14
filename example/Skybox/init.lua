@@ -12,7 +12,7 @@ local Skybox = class('example/Skybox')
 function Skybox:initialize( modelWorld )
     self.model = modelWorld:createModel('background')
     self.model:setMesh(skyboxMesh)
-    self.model:setProgramFamilyList('skybox')
+    self.model:setProgramFamily('skybox')
     self.model:setTexture(0, skyboxDiffuseTexture)
     self.model:setUniform('DiffuseSampler', 0, 'int')
 end

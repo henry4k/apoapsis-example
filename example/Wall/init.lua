@@ -13,7 +13,7 @@ local Wall = class('example/Wall')
 function Wall:initialize( modelWorld )
     self.model = modelWorld:createModel()
     self.model:setMesh(wallMesh)
-    self.model:setProgramFamilyList('simple')
+    self.model:setProgramFamily('simple')
     self.model:setTexture(0, diffuseTexture)
     self.model:setUniform('DiffuseSampler', 0, 'int')
 end

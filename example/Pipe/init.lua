@@ -22,7 +22,7 @@ local Pipe = class('example/Pipe')
 function Pipe:initialize( modelWorld )
     self.model = modelWorld:createModel()
     self.model:setMesh(combinedMesh)
-    self.model:setProgramFamilyList('simple')
+    self.model:setProgramFamily('simple')
     self.model:setTexture(0, diffuseTexture)
     self.model:setUniform('DiffuseSampler', 0, 'int')
 end
