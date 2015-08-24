@@ -15,6 +15,22 @@ function WallStructure:initialize( ... )
     SingleVoxelStructure.initialize(self, ...)
 end
 
+function WallStructure:destroy()
+    SingleVoxelStructure.destroy()
+end
+
+function WallStructure:create( voxelCreator )
+    print('WallStructure:create')
+end
+
+function WallStructure:read( voxelReader )
+    print('WallStructure:read')
+end
+
+function WallStructure:write( voxelWriter )
+    print('WallStructure:write')
+end
+
 function WallStructure:generateModels( chunkBuilder )
     print('GREAT SUCCESS!')
     local transformation = Mat4()
