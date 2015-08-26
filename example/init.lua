@@ -12,6 +12,7 @@ local Wall          = require 'example/Wall/init'
 local Pipe          = require 'example/Pipe/init'
 local Skybox        = require 'example/Skybox/init'
 local Planet        = require 'example/Planet/init'
+local WallStructure = require 'example/WallStructure'
 
 
 local overlayTexture = Texture:load('2d', 'example/Overlay.png', {'filter'})
@@ -45,6 +46,12 @@ local function AddOverlay( cube, modelWorld )
     overlayModel:setOverlayLevel(1)
 
     cube.overlayModel = overlayModel
+end
+
+local function genVoxels()
+    print(voxelVolume:createStructure(WallStructure, Vec(5,0,0)))
+    print(voxelVolume:createStructure(WallStructure, Vec(5,0,1)))
+    print(voxelVolume:createStructure(WallStructure, Vec(4,0,1)))
 end
 
 local function start()
@@ -101,6 +108,8 @@ local function start()
                                        :scale(planetDiameter*2)
                                        :rotate(90, Vec(0,1,0))
     planet:setTransformation(planetTransformation)
+
+    genVoxels()
 end
 
 return { start=start }

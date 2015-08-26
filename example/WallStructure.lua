@@ -34,7 +34,7 @@ end
 function WallStructure:generateModels( chunkBuilder )
     print('GREAT SUCCESS!')
     local transformation = Mat4()
-    chunkBuilder:addMeshBuffer(SimpleMaterial, WallMeshBuffer, transformation)
+    chunkBuilder:addMeshBuffer(SimpleMaterial, wallMeshBuffer, transformation)
 end
 
 
