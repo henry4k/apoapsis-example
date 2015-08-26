@@ -14,7 +14,7 @@ local Skybox        = require 'example/Skybox/init'
 local Planet        = require 'example/Planet/init'
 
 
-local overlayTexture = Texture:load('2d', 'example/Overlay.png')
+local overlayTexture = Texture:load('2d', 'example/Overlay.png', {'filter'})
 
 local simpleShaderProgram = ShaderProgram:load('example/shaders/Simple.vert',
                                                'example/shaders/Simple.frag')

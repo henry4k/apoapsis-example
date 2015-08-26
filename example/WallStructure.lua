@@ -1,6 +1,6 @@
 local class          = require 'middleclass'
 local Mat4           = require 'core/Matrix4'
-local SingleVoxelStructure = require 'core/world/SingleVoxelStructure'
+local SingleVoxelStructure = require 'core/voxel/SingleVoxelStructure'
 local MeshBuffer     = require 'core/graphics/MeshBuffer'
 local SimpleMaterial = require 'example/SimpleMaterial'
 
