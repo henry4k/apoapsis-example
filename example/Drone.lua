@@ -1,9 +1,6 @@
 local class   = require 'middleclass'
-local Object  = class.Object
 local Vec     = require 'core/Vector'
-local Quat    = require 'core/Quaternion'
 local Solid   = require 'core/physics/Solid'
-local Model   = require 'core/graphics/Model'
 local Mesh    = require 'core/graphics/Mesh'
 local Texture = require 'core/graphics/Texture'
 local Controllable      = require 'core/Controllable'
@@ -12,10 +9,6 @@ local BoxCollisionShape = require 'core/physics/BoxCollisionShape'
 
 
 local boxShape = BoxCollisionShape(Vec(0.5, 0.5, 0.5))
-
-local renderTarget    = require 'core/graphics/DefaultRenderTarget':get()
-local worldCamera     = renderTarget:getCameraByName('world')
-local worldModelWorld = worldCamera:getModelWorld()
 
 local wallMesh = Mesh:load('example/Wall/Scene.json', 'Wall')
 local diffuseTexture = Texture:load('2d', 'example/Diffuse.png')
@@ -28,13 +21,13 @@ local DroneMass = 1
 local MaxPower = 1
 local MinPower = 0.1
 
-function Drone:initialize( position, rotation )
+function Drone:initialize( modelWorld, position, rotation )
     WorldObject.initialize(self)
 
     local solid = Solid(DroneMass, position, rotation, boxShape)
     self.solid = solid
 
-    local model = worldModelWorld:createModel()
+    local model = modelWorld:createModel()
     model:setAttachmentTarget(solid)
     model:setMesh(wallMesh)
     model:setProgramFamily('simple')
