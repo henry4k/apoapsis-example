@@ -3,12 +3,14 @@ local Quat          = require 'core/Quaternion'
 local Control       = require 'core/Control'
 local ShaderProgram = require 'core/graphics/ShaderProgram'
 local Texture       = require 'core/graphics/Texture'
+local PhysicsWorld  = require 'core/physics/PhysicsWorld'
 local BoxCollisionShape = require 'core/physics/BoxCollisionShape'
 local Solid         = require 'core/physics/Solid'
 local DefaultShaderProgramSet = require 'base-game/shaders/DefaultShaderProgramSet'
 local SetupUtils    = require 'base-game/SetupUtils'
 local Background    = require 'base-game/Background'
-local PhysicalActor = require 'base-game/PhysicalActor'
+local GhostActor    = require 'base-game/GhostActor'
+local HumanoidActor = require 'base-game/HumanoidActor'
 local Scaffold      = require 'example/Scaffold/init'
 local Wall          = require 'example/Wall/init'
 local Pipe          = require 'example/Pipe/init'
@@ -76,8 +78,11 @@ local function start()
         end
     end)
 
-    local actor = PhysicalActor(renderTarget)
+    --local actor = HumanoidActor(renderTarget)
+    local actor = GhostActor(renderTarget)
     Control.pushControllable(actor)
+
+    PhysicsWorld.setGravity(Vec(0,-0.2,0))
 end
 
 return { start=start }
