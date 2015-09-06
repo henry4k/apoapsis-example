@@ -9,8 +9,7 @@ local Solid         = require 'core/physics/Solid'
 local DefaultShaderProgramSet = require 'base-game/shaders/DefaultShaderProgramSet'
 local SetupUtils    = require 'base-game/SetupUtils'
 local Background    = require 'base-game/Background'
-local GhostActor    = require 'base-game/GhostActor'
-local HumanoidActor = require 'base-game/HumanoidActor'
+local GhostActor    = require 'base-game/world/GhostActor'
 local Scaffold      = require 'example/Scaffold/init'
 local Wall          = require 'example/Wall/init'
 local Pipe          = require 'example/Pipe/init'
@@ -37,7 +36,7 @@ local function AddOverlay( cube, modelWorld )
 end
 
 local function start()
-    local renderTarget = require 'core/graphics/DefaultRenderTarget':get()
+    local renderTarget = require 'core/graphics/DefaultRenderTarget'
 
     SetupUtils.setupRenderTarget(renderTarget)
     Background.setup(renderTarget)
@@ -78,7 +77,6 @@ local function start()
         end
     end)
 
-    --local actor = HumanoidActor(renderTarget)
     local actor = GhostActor(renderTarget)
     Control.pushControllable(actor)
 
