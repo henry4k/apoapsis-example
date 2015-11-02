@@ -4,6 +4,7 @@ NAME = example
 
 ARCHIVE_CONTENTS += README.md
 ARCHIVE_CONTENTS += LICENSE
+ARCHIVE_CONTENTS += meta.json
 ARCHIVE_CONTENTS += $(wildcard *.lua **/*.lua)
 ARCHIVE_CONTENTS += $(wildcard *.vert **/*.vert)
 ARCHIVE_CONTENTS += $(wildcard *.frag **/*.frag)
