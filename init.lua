@@ -1,6 +1,7 @@
 local Vec           = require 'core/Vector'
 local Quat          = require 'core/Quaternion'
 local Control       = require 'core/Control'
+local GlobalControls = require 'core/GlobalControls'
 local ShaderProgram = require 'core/graphics/ShaderProgram'
 local Texture       = require 'core/graphics/Texture'
 local PhysicsWorld  = require 'core/physics/PhysicsWorld'
@@ -13,6 +14,7 @@ local GhostActor    = require 'base-game/world/GhostActor'
 local Scaffold      = require 'example/Scaffold/init'
 local Wall          = require 'example/Wall/init'
 local Pipe          = require 'example/Pipe/init'
+local WallStructure = require 'example/WallStructure'
 
 
 local overlayTexture = Texture:load('2d', 'example/Overlay.png', {'filter'})
@@ -41,6 +43,7 @@ local function start()
     SetupUtils.setupRenderTarget(renderTarget)
     Background.setup(renderTarget)
 
+    --[[
     DefaultShaderProgramSet:setFamily('simple', simpleShaderProgram)
     DefaultShaderProgramSet:setFamily('overlay', overlayShaderProgram)
 
@@ -76,11 +79,32 @@ local function start()
             cube.solid:applyImpulse(Vec(0, 3, 0))
         end
     end)
+    ]]
 
     local actor = GhostActor(renderTarget)
     Control.pushControllable(actor)
 
     PhysicsWorld.setGravity(Vec(0,-0.2,0))
+
+    --[[
+    local voxelVolume = SetupUtils.setupVoxelVolume(Vec(8,8,8))
+
+    local chunkManager = SetupUtils.setupChunkManager(voxelVolume, worldModelWorld)
+    chunkManager:addActivator(actor.chunkActivator)
+    chunkManager:update()
+
+    GlobalControls:mapControl('place-tile', function( self, absolute, delta )
+        if delta > 0 then
+            local position = actor.solid:getPosition()
+            local voxelPosition = Vec(math.floor(position[1]),
+                                      math.floor(position[2]),
+                                      math.floor(position[3]))
+            voxelVolume:createStructure(WallStructure, voxelPosition)
+            chunkManager:update()
+        end
+    end)
+    ]]
 end
+
 
 return { start=start }

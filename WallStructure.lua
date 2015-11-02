@@ -1,5 +1,6 @@
 local class          = require 'middleclass'
 local Mat4           = require 'core/Matrix4'
+local Voxel          = require 'core/voxel/Voxel'
 local SingleVoxelStructure = require 'core/voxel/SingleVoxelStructure'
 local MeshBuffer     = require 'core/graphics/MeshBuffer'
 local SimpleMaterial = require 'example/SimpleMaterial'
@@ -21,6 +22,9 @@ end
 
 function WallStructure:create( voxelCreator )
     print('WallStructure:create')
+    local voxel = Voxel()
+    WallStructure.voxelAccessor:write(voxel, 'id', WallStructure.id)
+    voxelCreator:writeVoxel(self.origin, voxel)
 end
 
 function WallStructure:read( voxelReader )

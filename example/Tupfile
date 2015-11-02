@@ -1,4 +1,0 @@
-include_rules
-
-: Diffuse.xcf |> !xcf2png |> Diffuse.png
-: Overlay.xcf |> !xcf2png |> Overlay.png
