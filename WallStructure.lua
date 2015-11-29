@@ -21,22 +21,18 @@ function WallStructure:destroy()
 end
 
 function WallStructure:create( voxelCreator )
-    print('WallStructure:create')
     local voxel = Voxel()
     WallStructure.voxelAccessor:write(voxel, 'id', WallStructure.id)
     voxelCreator:writeVoxel(self.origin, voxel)
 end
 
 function WallStructure:read( voxelReader )
-    print('WallStructure:read')
 end
 
 function WallStructure:write( voxelWriter )
-    print('WallStructure:write')
 end
 
 function WallStructure:generateModels( chunkBuilder )
-    print('GREAT SUCCESS!')
     local transformation = Mat4()
     chunkBuilder:addMeshBuffer(SimpleMaterial, wallMeshBuffer, transformation)
 end
