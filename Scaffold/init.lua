@@ -5,7 +5,7 @@ local Texture = require 'core/graphics/Texture'
 
 
 local scaffoldMesh = Mesh:load('example/Scaffold/Scene.json', 'Scaffold')
-local diffuseTexture = Texture:load('2d', 'example/Diffuse.png')
+local diffuseTexture = Texture:load{fileName='example/Diffuse.png'}
 
 
 local Scaffold = class('example/Scaffold')

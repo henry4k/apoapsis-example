@@ -11,7 +11,7 @@ local BoxCollisionShape = require 'core/physics/BoxCollisionShape'
 local boxShape = BoxCollisionShape(Vec(0.5, 0.5, 0.5))
 
 local wallMesh = Mesh:load('example/Wall/Scene.json', 'Wall')
-local diffuseTexture = Texture:load('2d', 'example/Diffuse.png')
+local diffuseTexture = Texture:load{fileName='example/Diffuse.png'}
 
 
 local Drone = class('example/Drone', WorldObject)

@@ -14,7 +14,7 @@ combinedMeshBuffer:appendMeshBuffer(pipeMeshBuffer)
 
 local combinedMesh = Mesh(combinedMeshBuffer)
 
-local diffuseTexture = Texture:load('2d', 'example/Diffuse.png')
+local diffuseTexture = Texture:load{fileName='example/Diffuse.png'}
 
 
 local Pipe = class('example/Pipe')

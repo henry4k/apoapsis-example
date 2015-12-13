@@ -5,7 +5,7 @@ local Texture = require 'core/graphics/Texture'
 
 
 local fluidTankMesh = Mesh:load('example/FluidTank/Scene.json', 'Cylinder')
-local fluidTankDiffuseTexture = Texture:load('2d', 'example/FluidTank/Diffuse.png')
+local fluidTankDiffuseTexture = Texture:load{fileName='example/FluidTank/Diffuse.png'}
 
 
 local FluidTank = class('example/FluidTank')
