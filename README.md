@@ -14,7 +14,7 @@ Needed to export models and graphics:
 - blender
 - xcf2png or gimp
 
-And obviously you need the Apoapsis executable and the core package.
+And obviously you need the Konstrukt executable and the core package.
 
 
 ## Licence and copyright

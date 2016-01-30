@@ -23,18 +23,28 @@ local function start()
     chunkManager:addActivator(actor.chunkActivator)
 
     ScaffoldStructure:setupMeshChunkGenerator(chunkManager.meshChunkGenerator)
-    voxelVolume:createStructure(ScaffoldStructure, Vec(0,0,0))
+    voxelVolume:createStructure(ScaffoldStructure, Vec(0,0,0), 1)
 
     chunkManager:update()
 
+    local function placeStructure( structureClass, ... )
+        local position = actor.solid:getPosition()
+        local voxelPosition = Vec(math.floor(position[1]),
+                                  math.floor(position[2]),
+                                  math.floor(position[3]))
+        voxelVolume:createStructure(structureClass, voxelPosition, ...)
+        chunkManager:update()
+    end
+
     GlobalControls:mapControl('place-tile', function( self, absolute, delta )
         if delta > 0 then
-            local position = actor.solid:getPosition()
-            local voxelPosition = Vec(math.floor(position[1]),
-                                      math.floor(position[2]),
-                                      math.floor(position[3]))
-            voxelVolume:createStructure(ScaffoldStructure, voxelPosition)
-            chunkManager:update()
+            placeStructure(ScaffoldStructure, 0)
+        end
+    end)
+
+    GlobalControls:mapControl('place-tile2', function( self, absolute, delta )
+        if delta > 0 then
+            placeStructure(ScaffoldStructure, 1)
         end
     end)
 end

@@ -2,7 +2,7 @@ local Texture = require 'core/graphics/Texture'
 local GraphicalMaterial = require 'core/graphics/GraphicalMaterial'
 
 
-local diffuseTexture = Texture:load('2d', 'example/Diffuse.png')
+local diffuseTexture = Texture:load{fileName='example/Diffuse.png'}
 
 
 local SimpleMaterial = GraphicalMaterial()
