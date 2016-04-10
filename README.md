@@ -1,7 +1,7 @@
 Apoapsis Example Package
 ========================
 
-A package for a game called [Apoapsis](https://github.com/henry4k/apoapsis).
+A package for an engine called [Konstrukt](https://github.com/henry4k/konstrukt).
 
 This package contains assets and scripts, which will become the foundation
 of the actual game content, once the engine is mature enough.
@@ -9,12 +9,7 @@ of the actual game content, once the engine is mature enough.
 
 ## Dependencies
 
-Needed to export models and graphics:
-
-- blender
-- xcf2png or gimp
-
-And obviously you need the Konstrukt executable and the core package.
+- [konstrukt-build-tools](https://github.com/henry4k/konstrukt-build-tools)
 
 
 ## Licence and copyright
